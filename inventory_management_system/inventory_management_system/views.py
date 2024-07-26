@@ -47,6 +47,3 @@ def ordersdetails(request):
 # customers
 def customersdetails(request):
     return render(request, 'customers/details.html')
-
-def customerlist(request):
-    return render(request, 'customers/list.html')

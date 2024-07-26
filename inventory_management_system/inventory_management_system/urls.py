@@ -37,10 +37,10 @@ urlpatterns = [
 
     # customers
 
-    path('customers-list', views.customerlist, name='customers-list'),
+    # path('customers-list', views.customerlist, name='customers-list'),
     path('customers-details', views.customersdetails, name='customers-details'),
 
 
     # customers app
-    path('user/', include('user.urls')),
+    path('users', include('user.urls')),
 ]

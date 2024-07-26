@@ -9,7 +9,7 @@ class User(models.Model):
     phone_number = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.email
     
     class Meta:
         db_table = 'user'

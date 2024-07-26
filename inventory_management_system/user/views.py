@@ -56,10 +56,36 @@ def createuser(request):
     
 
 # get all users
+# def getcustomers(request):
+#     if request.method == 'GET':
+#         customers = User.objects.all()
+
+#         customer_list = list(customers.values('id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone_number'))
+        # return JsonResponse(customer_list, safe=False, status=200)
+
+#         print(customer_list)
+#         return render(request, 'templates/customers/list',{'customers' : customer_list})
+
+#     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+
+
 def getcustomers(request):
-    if request.method == 'GET':
+    
+    # if request.method == 'GET':
+    print("get_customers view called")
+    try:
         customers = User.objects.all()
-        customer_list = list(customers.values('id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone_number'))
-        return JsonResponse(customer_list, safe=False, status=200)
-    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+        customer_list = list(customers.values('id', 'first_name', 'last_name', 'email'))
+        return render(request, 'customers/list.html', {'customers': customer_list})
+    except Exception as e:
+        print(f"Error fetching customers: {e}")
+        return JsonResponse({'success': False, 'message': 'Error fetching customers'}, status=500)
+    
+
+@csrf_exempt
+def deletecustomers(request, id):
+    if request.method == 'DELETE':
+        customers = User.objects.get(id=id)
+        customers.delete()
+        return JsonResponse({'success': True, 'message': 'Customer Deleted Successfully'}, status=200)
 
